@@ -6,15 +6,19 @@ import org.junit.Test;
 import passwordmanager.core.PasswordManager;
 import passwordmanager.core.PasswordManagerBuilder;
 import passwordmanager.core.beans.PasswordRule;
+import passwordmanager.core.beans.impl.Answer;
 import passwordmanager.core.beans.impl.Password;
 import passwordmanager.core.beans.impl.PasswordLengthRule;
 import passwordmanager.core.beans.impl.PasswordLowercaseCharRule;
 import passwordmanager.core.beans.impl.PasswordUppercaseCharRule;
 import passwordmanager.core.beans.impl.Question;
+import passwordmanager.core.beans.impl.User;
 import passwordmanager.core.impl.PasswordRuleException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -79,6 +83,20 @@ public class PasswordManagerTest {
 		});
 
 		assertEquals("passwordLowercaseCharRule.errorMessage", exception.getMessage());
+
+	}
+	
+	@Test
+	public void testQuestions() {
+
+		List<Answer> answers = new LinkedList<Answer>();
+		
+		User user = new User();
+		
+		for(Question question:PASS_MANAGER.getQuestions()) {
+			Answer answer = new Answer("answer", question, user);
+			answers.add(answer);
+		}
 
 	}
 }

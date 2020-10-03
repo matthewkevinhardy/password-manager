@@ -7,6 +7,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import passwordmanager.core.PasswordManager;
 import passwordmanager.core.beans.PasswordRule;
+import passwordmanager.core.beans.impl.Answer;
 import passwordmanager.core.beans.impl.Password;
 import passwordmanager.core.beans.impl.Question;
 
@@ -31,6 +32,20 @@ public class PasswordManagerImpl implements PasswordManager {
 	@Override
 	public byte[] hashPassword(Password password) {
 		return DigestUtils.sha256(password.getValue());
+	}
+
+	@Override
+	public byte[] hashAnswers(List<Answer> answers) {
+		StringBuilder answerBuilder = new StringBuilder();
+		for(Answer answer:answers) {
+			answerBuilder.append(answer.getValue());
+		}
+		return DigestUtils.sha256(answerBuilder.toString());
+	}
+
+	@Override
+	public List<Question> getQuestions() {
+		return this.questions;
 	}
 	
 	
