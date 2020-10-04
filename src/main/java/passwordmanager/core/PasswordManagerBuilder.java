@@ -11,12 +11,10 @@ import passwordmanager.core.impl.PasswordManagerImpl;
 public class PasswordManagerBuilder {
 	private List<Question> questions;
 	private List<PasswordRule> passwordRules;
-	private ResourceBundle resourceBundle;
 	
-	public PasswordManagerBuilder(ResourceBundle resourceBundle) {
+	public PasswordManagerBuilder() {
 		this.questions = new LinkedList<Question>();
 		this.passwordRules = new LinkedList<PasswordRule>();
-		this.resourceBundle=resourceBundle;
 	}
 	
 	public PasswordManagerBuilder addPasswordRule(PasswordRule passwordRule) {
@@ -30,6 +28,6 @@ public class PasswordManagerBuilder {
 	}
 	
 	public PasswordManager build() {
-		return new PasswordManagerImpl(this.resourceBundle,this.questions, this.passwordRules);
+		return new PasswordManagerImpl(this.questions, this.passwordRules);
 	}
 }

@@ -25,26 +25,25 @@ import java.util.ResourceBundle;
 public class PasswordManagerTest {
 
 	private static PasswordManager PASS_MANAGER;
+	private static ResourceBundle MESSAGES_EN = ResourceBundle.getBundle("passwordmanager.core.i18n.MessageBundle",
+			Locale.ENGLISH);
 
 	@BeforeClass
 	public static void setup() {
-		ResourceBundle messageBundle = ResourceBundle.getBundle("passwordmanager.core.i18n.MessageBundle", Locale.ENGLISH);
-
-		PasswordRule lengthRule = new PasswordLengthRule(8, "passwordLengthRule.description", 
+		PasswordRule lengthRule = new PasswordLengthRule(8, "passwordLengthRule.description",
 				"passwordLengthRule.errorMessage");
 		PasswordRule uppercaseCharRule = new PasswordUppercaseCharRule("passwordUppercaseCharRule.description",
 				"passwordUppercaseCharRule.errorMessage");
 		PasswordRule lowercaseCharRule = new PasswordLowercaseCharRule("passwordLowercaseCharRule.description",
 				"passwordLowercaseCharRule.errorMessage");
-		
+
 		Question question1 = new Question("question1");
 		Question question2 = new Question("question2");
 		Question question3 = new Question("question3");
-		
-		PASS_MANAGER = new PasswordManagerBuilder(messageBundle).addPasswordRule(uppercaseCharRule)
-				.addPasswordRule(lowercaseCharRule)
-				.addPasswordRule(lengthRule)
-				.addQuestion(question1).addQuestion(question2).addQuestion(question3).build();
+
+		PASS_MANAGER = new PasswordManagerBuilder().addPasswordRule(uppercaseCharRule)
+				.addPasswordRule(lowercaseCharRule).addPasswordRule(lengthRule).addQuestion(question1)
+				.addQuestion(question2).addQuestion(question3).build();
 	}
 
 	@Test
@@ -71,6 +70,9 @@ public class PasswordManagerTest {
 
 		assertEquals("passwordUppercaseCharRule.errorMessage", exception.getMessage());
 
+		String errorMessage = MESSAGES_EN.getString(exception.getPasswordRule().getErrorMessageKey());
+		assertEquals("Min 1 uppercase char", errorMessage);
+
 	}
 
 	@Test
@@ -82,18 +84,18 @@ public class PasswordManagerTest {
 			PASS_MANAGER.isValidPassword(password);
 		});
 
-		assertEquals("passwordLowercaseCharRule.errorMessage", exception.getMessage());
+		assertEquals("passwordLowercaseCharRule.errorMessage", exception.getPasswordRule().getErrorMessageKey());
 
 	}
-	
+
 	@Test
 	public void testQuestions() {
 
 		List<Answer> answers = new LinkedList<Answer>();
-		
-		User user = new User();
-		
-		for(Question question:PASS_MANAGER.getQuestions()) {
+
+		User user = new User("myUserName");
+
+		for (Question question : PASS_MANAGER.getQuestions()) {
 			Answer answer = new Answer("answer", question, user);
 			answers.add(answer);
 		}

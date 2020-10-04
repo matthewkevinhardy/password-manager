@@ -4,20 +4,20 @@ import passwordmanager.core.beans.impl.Password;
 import passwordmanager.core.impl.PasswordRuleException;
 
 public abstract class PasswordRule {
-	protected final String description;
-	protected final String errorMessage;
+	protected final String descriptionKey;
+	protected final String errorMessageKey;
 	
-	public PasswordRule(String description, String errorMessage) {
-		this.description = description;
-		this.errorMessage = errorMessage;
+	public PasswordRule(String descriptionKey, String errorMessageKey) {
+		this.descriptionKey = descriptionKey;
+		this.errorMessageKey = errorMessageKey;
 	}
 	
-	public String getDescription() {
-		return this.description;
+	public String getDescriptionKey() {
+		return this.descriptionKey;
 	}
 
-	public String getErrorMessage() {
-		return this.errorMessage;
+	public String getErrorMessageKey() {
+		return this.errorMessageKey;
 	}
 	
 	public abstract boolean isValidPassword(Password password) throws PasswordRuleException;

@@ -5,8 +5,8 @@ import passwordmanager.core.impl.PasswordRuleException;
 
 public final class PasswordLowercaseCharRule extends PasswordRule {
 	
-	public PasswordLowercaseCharRule(String description, String errorMessage) {
-		super(description, errorMessage);
+	public PasswordLowercaseCharRule(String descriptionKey, String errorMessageKey) {
+		super(descriptionKey, errorMessageKey);
 	}
 
 	public boolean isValidPassword(Password password) throws PasswordRuleException {

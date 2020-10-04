@@ -14,12 +14,10 @@ import passwordmanager.core.beans.impl.Question;
 public class PasswordManagerImpl implements PasswordManager {
 	private List<Question> questions;
 	private List<PasswordRule> passwordRules;
-	private ResourceBundle resourceBundle;
 	
-	public PasswordManagerImpl(ResourceBundle resourceBundle, List<Question> questions, List<PasswordRule> passwordRules) {
+	public PasswordManagerImpl(List<Question> questions, List<PasswordRule> passwordRules) {
 		this.questions = questions;
 		this.passwordRules = passwordRules;
-		this.resourceBundle = resourceBundle;
 	}
 
 	public boolean isValidPassword(Password password) throws PasswordRuleException {

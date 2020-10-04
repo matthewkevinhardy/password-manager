@@ -12,9 +12,13 @@ public class PasswordRuleException extends Exception {
 		this.passwordRule = passwordRule;
 	}
 	
+	public PasswordRule getPasswordRule() {
+		return passwordRule;
+	}
+
 	@Override
 	public String getMessage() {
-		return this.passwordRule.getErrorMessage();
+		return this.passwordRule.getErrorMessageKey();
 	}
 	
 }
