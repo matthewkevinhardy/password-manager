@@ -1,4 +1,4 @@
-package mkhardy.uk.to.passwordmanager.core.beans.impl;
+package to.uk.mkhardy.passwordmanager.core.beans.impl;
 
 public final class Password {
 	private final String password;

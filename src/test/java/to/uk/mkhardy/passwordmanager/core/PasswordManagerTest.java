@@ -1,19 +1,19 @@
-package mkhardy.uk.to.passwordmanager.core;
+package to.uk.mkhardy.passwordmanager.core;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import mkhardy.uk.to.passwordmanager.core.PasswordManager;
-import mkhardy.uk.to.passwordmanager.core.PasswordManagerBuilder;
-import mkhardy.uk.to.passwordmanager.core.beans.PasswordRule;
-import mkhardy.uk.to.passwordmanager.core.beans.impl.Answer;
-import mkhardy.uk.to.passwordmanager.core.beans.impl.Password;
-import mkhardy.uk.to.passwordmanager.core.beans.impl.PasswordLengthRule;
-import mkhardy.uk.to.passwordmanager.core.beans.impl.PasswordLowercaseCharRule;
-import mkhardy.uk.to.passwordmanager.core.beans.impl.PasswordUppercaseCharRule;
-import mkhardy.uk.to.passwordmanager.core.beans.impl.Question;
-import mkhardy.uk.to.passwordmanager.core.beans.impl.User;
-import mkhardy.uk.to.passwordmanager.core.impl.PasswordRuleException;
+import to.uk.mkhardy.passwordmanager.core.PasswordManager;
+import to.uk.mkhardy.passwordmanager.core.PasswordManagerBuilder;
+import to.uk.mkhardy.passwordmanager.core.beans.PasswordRule;
+import to.uk.mkhardy.passwordmanager.core.beans.impl.Answer;
+import to.uk.mkhardy.passwordmanager.core.beans.impl.Password;
+import to.uk.mkhardy.passwordmanager.core.beans.impl.PasswordLengthRule;
+import to.uk.mkhardy.passwordmanager.core.beans.impl.PasswordLowercaseCharRule;
+import to.uk.mkhardy.passwordmanager.core.beans.impl.PasswordUppercaseCharRule;
+import to.uk.mkhardy.passwordmanager.core.beans.impl.Question;
+import to.uk.mkhardy.passwordmanager.core.beans.impl.User;
+import to.uk.mkhardy.passwordmanager.core.impl.PasswordRuleException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 public class PasswordManagerTest {
 
 	private static PasswordManager PASS_MANAGER;
-	private static ResourceBundle MESSAGES_EN = ResourceBundle.getBundle("passwordmanager.core.i18n.MessageBundle",
+	private static ResourceBundle MESSAGES_EN = ResourceBundle.getBundle("to.uk.mkhardy.passwordmanager.core.i18n.MessageBundle",
 			Locale.ENGLISH);
 
 	@BeforeClass
