@@ -1,18 +1,19 @@
-package org.mkhardy.passwordmanager.core;
+package mkhardy.uk.to.passwordmanager.core;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mkhardy.passwordmanager.core.PasswordManager;
-import org.mkhardy.passwordmanager.core.PasswordManagerBuilder;
-import org.mkhardy.passwordmanager.core.beans.PasswordRule;
-import org.mkhardy.passwordmanager.core.beans.impl.Answer;
-import org.mkhardy.passwordmanager.core.beans.impl.Password;
-import org.mkhardy.passwordmanager.core.beans.impl.PasswordLengthRule;
-import org.mkhardy.passwordmanager.core.beans.impl.PasswordLowercaseCharRule;
-import org.mkhardy.passwordmanager.core.beans.impl.PasswordUppercaseCharRule;
-import org.mkhardy.passwordmanager.core.beans.impl.Question;
-import org.mkhardy.passwordmanager.core.beans.impl.User;
-import org.mkhardy.passwordmanager.core.impl.PasswordRuleException;
+
+import mkhardy.uk.to.passwordmanager.core.PasswordManager;
+import mkhardy.uk.to.passwordmanager.core.PasswordManagerBuilder;
+import mkhardy.uk.to.passwordmanager.core.beans.PasswordRule;
+import mkhardy.uk.to.passwordmanager.core.beans.impl.Answer;
+import mkhardy.uk.to.passwordmanager.core.beans.impl.Password;
+import mkhardy.uk.to.passwordmanager.core.beans.impl.PasswordLengthRule;
+import mkhardy.uk.to.passwordmanager.core.beans.impl.PasswordLowercaseCharRule;
+import mkhardy.uk.to.passwordmanager.core.beans.impl.PasswordUppercaseCharRule;
+import mkhardy.uk.to.passwordmanager.core.beans.impl.Question;
+import mkhardy.uk.to.passwordmanager.core.beans.impl.User;
+import mkhardy.uk.to.passwordmanager.core.impl.PasswordRuleException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

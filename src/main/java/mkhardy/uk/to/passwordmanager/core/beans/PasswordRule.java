@@ -1,7 +1,7 @@
-package org.mkhardy.passwordmanager.core.beans;
+package mkhardy.uk.to.passwordmanager.core.beans;
 
-import org.mkhardy.passwordmanager.core.beans.impl.Password;
-import org.mkhardy.passwordmanager.core.impl.PasswordRuleException;
+import mkhardy.uk.to.passwordmanager.core.beans.impl.Password;
+import mkhardy.uk.to.passwordmanager.core.impl.PasswordRuleException;
 
 public abstract class PasswordRule {
 	protected final String descriptionKey;

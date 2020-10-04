@@ -1,4 +1,4 @@
-package org.mkhardy.passwordmanager.core.beans.impl;
+package mkhardy.uk.to.passwordmanager.core.beans.impl;
 
 public final class Answer {
 	private final String value;

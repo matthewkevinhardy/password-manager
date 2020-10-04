@@ -1,7 +1,7 @@
-package org.mkhardy.passwordmanager.core.beans.impl;
+package mkhardy.uk.to.passwordmanager.core.beans.impl;
 
-import org.mkhardy.passwordmanager.core.beans.PasswordRule;
-import org.mkhardy.passwordmanager.core.impl.PasswordRuleException;
+import mkhardy.uk.to.passwordmanager.core.beans.PasswordRule;
+import mkhardy.uk.to.passwordmanager.core.impl.PasswordRuleException;
 
 public final class PasswordLowercaseCharRule extends PasswordRule {
 	
