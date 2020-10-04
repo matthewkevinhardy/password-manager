@@ -1,19 +1,19 @@
-package passwordmanager;
+package org.mkhardy.passwordmanager.core;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mkhardy.passwordmanager.core.PasswordManager;
+import org.mkhardy.passwordmanager.core.PasswordManagerBuilder;
+import org.mkhardy.passwordmanager.core.beans.PasswordRule;
+import org.mkhardy.passwordmanager.core.beans.impl.Answer;
+import org.mkhardy.passwordmanager.core.beans.impl.Password;
+import org.mkhardy.passwordmanager.core.beans.impl.PasswordLengthRule;
+import org.mkhardy.passwordmanager.core.beans.impl.PasswordLowercaseCharRule;
+import org.mkhardy.passwordmanager.core.beans.impl.PasswordUppercaseCharRule;
+import org.mkhardy.passwordmanager.core.beans.impl.Question;
+import org.mkhardy.passwordmanager.core.beans.impl.User;
+import org.mkhardy.passwordmanager.core.impl.PasswordRuleException;
 
-import passwordmanager.core.PasswordManager;
-import passwordmanager.core.PasswordManagerBuilder;
-import passwordmanager.core.beans.PasswordRule;
-import passwordmanager.core.beans.impl.Answer;
-import passwordmanager.core.beans.impl.Password;
-import passwordmanager.core.beans.impl.PasswordLengthRule;
-import passwordmanager.core.beans.impl.PasswordLowercaseCharRule;
-import passwordmanager.core.beans.impl.PasswordUppercaseCharRule;
-import passwordmanager.core.beans.impl.Question;
-import passwordmanager.core.beans.impl.User;
-import passwordmanager.core.impl.PasswordRuleException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

@@ -1,15 +1,14 @@
-package passwordmanager.core.impl;
+package org.mkhardy.passwordmanager.core.impl;
 
 import java.util.List;
 import java.util.ResourceBundle;
 
 import org.apache.commons.codec.digest.DigestUtils;
-
-import passwordmanager.core.PasswordManager;
-import passwordmanager.core.beans.PasswordRule;
-import passwordmanager.core.beans.impl.Answer;
-import passwordmanager.core.beans.impl.Password;
-import passwordmanager.core.beans.impl.Question;
+import org.mkhardy.passwordmanager.core.PasswordManager;
+import org.mkhardy.passwordmanager.core.beans.PasswordRule;
+import org.mkhardy.passwordmanager.core.beans.impl.Answer;
+import org.mkhardy.passwordmanager.core.beans.impl.Password;
+import org.mkhardy.passwordmanager.core.beans.impl.Question;
 
 public class PasswordManagerImpl implements PasswordManager {
 	private List<Question> questions;

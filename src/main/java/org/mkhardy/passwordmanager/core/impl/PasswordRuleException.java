@@ -1,6 +1,6 @@
-package passwordmanager.core.impl;
+package org.mkhardy.passwordmanager.core.impl;
 
-import passwordmanager.core.beans.PasswordRule;
+import org.mkhardy.passwordmanager.core.beans.PasswordRule;
 
 public class PasswordRuleException extends Exception {
 

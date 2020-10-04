@@ -1,7 +1,7 @@
-package passwordmanager.core.beans.impl;
+package org.mkhardy.passwordmanager.core.beans.impl;
 
-import passwordmanager.core.beans.PasswordRule;
-import passwordmanager.core.impl.PasswordRuleException;
+import org.mkhardy.passwordmanager.core.beans.PasswordRule;
+import org.mkhardy.passwordmanager.core.impl.PasswordRuleException;
 
 public final class PasswordUppercaseCharRule extends PasswordRule {
 	

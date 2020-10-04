@@ -1,12 +1,12 @@
-package passwordmanager.core;
+package org.mkhardy.passwordmanager.core;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import passwordmanager.core.beans.PasswordRule;
-import passwordmanager.core.beans.impl.Question;
-import passwordmanager.core.impl.PasswordManagerImpl;
+import org.mkhardy.passwordmanager.core.beans.PasswordRule;
+import org.mkhardy.passwordmanager.core.beans.impl.Question;
+import org.mkhardy.passwordmanager.core.impl.PasswordManagerImpl;
 
 public class PasswordManagerBuilder {
 	private List<Question> questions;
