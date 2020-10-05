@@ -13,7 +13,7 @@ public final class PasswordLowercaseCharRule extends PasswordRule {
 		
 		boolean containsLower = false;
 		
-		for(char c:password.getValue().toCharArray()) {
+		for(char c:password.getString().toCharArray()) {
 			if(Character.isLowerCase(c)) {
 				containsLower=true;
 				break;

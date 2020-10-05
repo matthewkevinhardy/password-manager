@@ -13,7 +13,7 @@ public final class PasswordUppercaseCharRule extends PasswordRule {
 		
 		boolean containsUpper = false;
 		
-		for(char c:password.getValue().toCharArray()) {
+		for(char c:password.getString().toCharArray()) {
 			if(Character.isUpperCase(c)) {
 				containsUpper=true;
 				break;

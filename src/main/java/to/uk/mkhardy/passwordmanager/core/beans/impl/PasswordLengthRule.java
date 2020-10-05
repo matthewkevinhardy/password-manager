@@ -13,7 +13,7 @@ public final class PasswordLengthRule extends PasswordRule {
 	}
 
 	public boolean isValidPassword(Password password) throws PasswordRuleException {
-		if(password!=null && password.getValue().length()<minChars) {
+		if(password!=null && password.getString().length()<minChars) {
 			throw new PasswordRuleException(this);
 		}
 		return true;

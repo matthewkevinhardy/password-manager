@@ -1,13 +1,17 @@
 package to.uk.mkhardy.passwordmanager.core.beans.impl;
 
 public final class Password {
-	private final String password;
+	private final byte[] passwordBytes;
 
 	public Password(String password) {
-		this.password = password;
+		this.passwordBytes = password.getBytes();
 	}
 	
-	public String getValue() {
-		return this.password;
+	public byte[] getBytes() {
+		return this.passwordBytes;
+	}
+	
+	public String getString() {
+		return new String(this.passwordBytes);
 	}
 }
