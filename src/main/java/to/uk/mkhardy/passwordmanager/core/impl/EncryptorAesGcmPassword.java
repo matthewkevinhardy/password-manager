@@ -52,6 +52,14 @@ public class EncryptorAesGcmPassword {
     // we need the same password, salt and iv to decrypt it
     public static String decrypt(String cText, String password) throws Exception {
 
+        byte[] plainText = decryptBytes(cText, password);
+
+        return new String(plainText, UTF_8);
+
+    }
+
+    public static byte[] decryptBytes(String cText, String password) throws Exception {
+
         byte[] decode = Base64.getDecoder().decode(cText.getBytes(UTF_8));
 
         // get back the iv and salt from the cipher text
@@ -73,12 +81,10 @@ public class EncryptorAesGcmPassword {
 
         cipher.init(Cipher.DECRYPT_MODE, aesKeyFromPassword, new GCMParameterSpec(TAG_LENGTH_BIT, iv));
 
-        byte[] plainText = cipher.doFinal(cipherText);
-
-        return new String(plainText, UTF_8);
+        return cipher.doFinal(cipherText);
 
     }
-
+    
     public static void main(String[] args) throws Exception {
 
         String OUTPUT_FORMAT = "%-30s:%s";
