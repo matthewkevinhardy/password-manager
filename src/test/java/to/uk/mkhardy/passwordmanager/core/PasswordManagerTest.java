@@ -1,10 +1,21 @@
 package to.uk.mkhardy.passwordmanager.core;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javax.crypto.SecretKey;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import to.uk.mkhardy.passwordmanager.core.PasswordManager;
-import to.uk.mkhardy.passwordmanager.core.PasswordManagerBuilder;
 import to.uk.mkhardy.passwordmanager.core.beans.PasswordRule;
 import to.uk.mkhardy.passwordmanager.core.beans.impl.Answer;
 import to.uk.mkhardy.passwordmanager.core.beans.impl.Password;
@@ -14,23 +25,7 @@ import to.uk.mkhardy.passwordmanager.core.beans.impl.PasswordUppercaseCharRule;
 import to.uk.mkhardy.passwordmanager.core.beans.impl.Question;
 import to.uk.mkhardy.passwordmanager.core.beans.impl.User;
 import to.uk.mkhardy.passwordmanager.core.impl.CryptoUtils;
-import to.uk.mkhardy.passwordmanager.core.impl.EncryptorAesGcm;
 import to.uk.mkhardy.passwordmanager.core.impl.PasswordRuleException;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Base64;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.crypto.SecretKey;
 
 public class PasswordManagerTest {
 
@@ -159,6 +154,14 @@ public class PasswordManagerTest {
 			String plainTxtAnswer = PLAIN_TEXT_ANSWERS.get(it.previousIndex());
 			
 			assertTrue( PASS_MANAGER.isValidAnswer(plainTxtAnswer, answer) );
+			assertFalse( PASS_MANAGER.isValidAnswer("wrongAnswer", answer) );
 		}
+	}
+	
+	@Test
+	public void testPassword() {
+		
+		assertTrue( PASS_MANAGER.isValidPassword(PLAIN_TEXT_PASS, PASSWORD) );
+		assertFalse( PASS_MANAGER.isValidPassword("wrongPassword", PASSWORD) );
 	}
 }

@@ -2,7 +2,6 @@ package to.uk.mkhardy.passwordmanager.core;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import to.uk.mkhardy.passwordmanager.core.beans.PasswordRule;
 import to.uk.mkhardy.passwordmanager.core.beans.impl.Question;

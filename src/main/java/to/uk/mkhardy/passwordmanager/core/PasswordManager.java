@@ -18,7 +18,8 @@ public interface PasswordManager {
 	
 	public boolean isValidAnswer(String pText,Answer answer);
 	
-	//public SecretKey getAnswerKey(List<Answer> answers,User user) throws NoSuchAlgorithmException, InvalidKeySpecException;
+	public boolean isValidPassword(String pText,Password password);
+	
 	public List<Question> getQuestions();
 	
 	public String encrypt(byte[] pText, List<String> answers, User user) throws Exception;

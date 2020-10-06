@@ -12,5 +12,10 @@ public final class Password {
 	public String getPasswordHash() {
 		return this.passwordHash;
 	}
+
+	public User getUser() {
+		return user;
+	}
+	
 	
 }

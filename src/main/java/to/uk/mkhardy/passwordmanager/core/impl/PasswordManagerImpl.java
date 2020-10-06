@@ -29,6 +29,7 @@ public class PasswordManagerImpl implements PasswordManager {
 		return true;
 	}
 
+	@Override
 	public String encrypt(byte[] pText, List<String> answers, User user) throws Exception {
 		StringBuilder answerBuilder = new StringBuilder(user.getUserName());
 		for (String answer : answers) {
@@ -38,6 +39,7 @@ public class PasswordManagerImpl implements PasswordManager {
 		return encrypt(pText, answerBuilder.toString());
 	}
 
+	@Override
 	public String decrypt(String cText, List<String> answers, User user) throws Exception {
 		StringBuilder answerBuilder = new StringBuilder(user.getUserName());
 		for (String answer : answers) {
@@ -90,6 +92,16 @@ public class PasswordManagerImpl implements PasswordManager {
 		String answerHashBase64 = Base64.encodeBase64String(answerHash);
 		
 		return answerHashBase64.equals(answer.getHashValue());
+	}
+
+	@Override
+	public boolean isValidPassword(String pText, Password password) {
+		StringBuilder hashBuilder = new StringBuilder(password.getUser().getUserName())
+				.append(pText);
+		byte[] passHash = DigestUtils.sha256(hashBuilder.toString().getBytes());
+		String passHashBase64 = Base64.encodeBase64String(passHash);
+		
+		return passHashBase64.equals(password.getPasswordHash());
 	}
 	
 }
