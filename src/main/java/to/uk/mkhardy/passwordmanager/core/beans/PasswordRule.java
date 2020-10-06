@@ -1,6 +1,5 @@
 package to.uk.mkhardy.passwordmanager.core.beans;
 
-import to.uk.mkhardy.passwordmanager.core.beans.impl.Password;
 import to.uk.mkhardy.passwordmanager.core.impl.PasswordRuleException;
 
 public abstract class PasswordRule {
@@ -20,5 +19,5 @@ public abstract class PasswordRule {
 		return this.errorMessageKey;
 	}
 	
-	public abstract boolean isValidPassword(Password password) throws PasswordRuleException;
+	public abstract boolean isValidPassword(String password) throws PasswordRuleException;
 }

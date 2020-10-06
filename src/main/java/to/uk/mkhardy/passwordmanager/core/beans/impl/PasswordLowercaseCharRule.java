@@ -9,11 +9,11 @@ public final class PasswordLowercaseCharRule extends PasswordRule {
 		super(descriptionKey, errorMessageKey);
 	}
 
-	public boolean isValidPassword(Password password) throws PasswordRuleException {
+	public boolean isValidPassword(String password) throws PasswordRuleException {
 		
 		boolean containsLower = false;
 		
-		for(char c:password.getString().toCharArray()) {
+		for(char c:password.toCharArray()) {
 			if(Character.isLowerCase(c)) {
 				containsLower=true;
 				break;

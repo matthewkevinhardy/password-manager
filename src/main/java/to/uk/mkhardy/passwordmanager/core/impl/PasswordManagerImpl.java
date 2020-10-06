@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.crypto.SecretKey;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import to.uk.mkhardy.passwordmanager.core.PasswordManager;
@@ -23,41 +24,39 @@ public class PasswordManagerImpl implements PasswordManager {
 		this.questions = questions;
 		this.passwordRules = passwordRules;
 	}
-
-	public boolean isValidPassword(Password password) throws PasswordRuleException {
+	
+	@Override
+	public boolean isValidPassword(String password) throws PasswordRuleException {
 		for (PasswordRule passwordRule : passwordRules) {
 			passwordRule.isValidPassword(password);
 		}
 		return true;
 	}
 
-	@Override
-	public byte[] hashPassword(Password password) {
-		return DigestUtils.sha256(password.getBytes());
-	}
-
-	public String encrypt(byte[] pText, List<Answer> answers, User user) throws Exception {
+	public String encrypt(byte[] pText, List<String> answers, User user) throws Exception {
 		StringBuilder answerBuilder = new StringBuilder(user.getUserName());
-		for (Answer answer : answers) {
-			answerBuilder.append(answer.getStringValue());
+		for (String answer : answers) {
+			answerBuilder.append(answer);
 		}
 
 		return encrypt(pText, answerBuilder.toString());
 	}
-	
-	public String decrypt(String cText, List<Answer> answers, User user) throws Exception {
+
+	public String decrypt(String cText, List<String> answers, User user) throws Exception {
 		StringBuilder answerBuilder = new StringBuilder(user.getUserName());
-		for (Answer answer : answers) {
-			answerBuilder.append(answer.getStringValue());
+		for (String answer : answers) {
+			answerBuilder.append(answer);
 		}
 
 		return decrypt(cText, answerBuilder.toString());
 	}
 	
+	@Override
 	public String encrypt(byte[] pText, String password) throws Exception {
 		return EncryptorAesGcmPassword.encrypt(pText, password);
 	}
-
+	
+	@Override
 	public String decrypt(String cText, String password) throws Exception {
 		return EncryptorAesGcmPassword.decrypt(cText, password);
 	}
@@ -68,14 +67,23 @@ public class PasswordManagerImpl implements PasswordManager {
 	}
 
 	@Override
-	public String encrypt(byte[] pText, Password password) throws Exception {
-		return encrypt(pText, password.getString());
+	public Answer getAnswer(String value,User user,Question question) {
+		StringBuilder hashBuilder = new StringBuilder(user.getUserName())
+				.append(question.getQuestionId()).append(value);
+		byte[] answerHash = DigestUtils.sha256(hashBuilder.toString().getBytes());
+		String answerHashBase64 = Base64.encodeBase64String(answerHash);
+		Answer answer = new Answer(answerHashBase64, question, user);
+		return answer;
 	}
 
 	@Override
-	public String decrypt(String cText, Password password) throws Exception {
-		return decrypt(cText,password.getString());
+	public Password getPassword(String value,User user) {
+		StringBuilder hashBuilder = new StringBuilder(user.getUserName())
+				.append(value);
+		byte[] passHash = DigestUtils.sha256(hashBuilder.toString().getBytes());
+		String passHashBase64 = Base64.encodeBase64String(passHash);
+		Password password = new Password(passHashBase64,user);
+		return password;
 	}
-
 	
 }

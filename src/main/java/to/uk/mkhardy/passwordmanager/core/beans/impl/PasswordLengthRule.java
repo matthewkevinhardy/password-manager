@@ -12,8 +12,8 @@ public final class PasswordLengthRule extends PasswordRule {
 		this.minChars=minChars;
 	}
 
-	public boolean isValidPassword(Password password) throws PasswordRuleException {
-		if(password!=null && password.getString().length()<minChars) {
+	public boolean isValidPassword(String password) throws PasswordRuleException {
+		if(password!=null && password.length()<minChars) {
 			throw new PasswordRuleException(this);
 		}
 		return true;

@@ -25,6 +25,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -33,15 +34,18 @@ import javax.crypto.SecretKey;
 public class PasswordManagerTest {
 
 	private static PasswordManager PASS_MANAGER;
-	private static ResourceBundle MESSAGES_EN = ResourceBundle.getBundle("to.uk.mkhardy.passwordmanager.core.i18n.MessageBundle",
-			Locale.ENGLISH);
-	
+	private static ResourceBundle MESSAGES_EN = ResourceBundle
+			.getBundle("to.uk.mkhardy.passwordmanager.core.i18n.MessageBundle", Locale.ENGLISH);
+
 	private static User USER = new User("myUserName");
 
 	private static List<Answer> ANSWERS = new LinkedList<Answer>();
+	private static List<String> PLAIN_TEXT_ANSWERS = new LinkedList<String>();
 	
-	private static Password PASSWORD = new Password("P@SSw0RD");
+	private static String PLAIN_TEXT_PASS = "P@SSw0RD";
 	
+	private static Password PASSWORD;
+
 	@BeforeClass
 	public static void setup() {
 		PasswordRule lengthRule = new PasswordLengthRule(8, "passwordLengthRule.description",
@@ -54,24 +58,34 @@ public class PasswordManagerTest {
 		Question question1 = new Question("question1");
 		Question question2 = new Question("question2");
 		Question question3 = new Question("question3");
+		Question question4 = new Question("question4");
+		Question question5 = new Question("question5");
+		Question question6 = new Question("question6");
+		Question question7 = new Question("question7");
+		Question question8 = new Question("question8");
+		Question question9 = new Question("question9");
+		Question question10 = new Question("question10");
 
 		PASS_MANAGER = new PasswordManagerBuilder().addPasswordRule(uppercaseCharRule)
 				.addPasswordRule(lowercaseCharRule).addPasswordRule(lengthRule).addQuestion(question1)
-				.addQuestion(question2).addQuestion(question3).build();
+				.addQuestion(question2).addQuestion(question3).addQuestion(question4).addQuestion(question5)
+				.addQuestion(question6).addQuestion(question7).addQuestion(question8).addQuestion(question9)
+				.addQuestion(question10).build();
 
-		for (Question question : PASS_MANAGER.getQuestions()) {
-			Answer answer = new Answer("answer", question, USER);
-			ANSWERS.add(answer);
+		PASSWORD = PASS_MANAGER.getPassword(PLAIN_TEXT_PASS, USER);
+
+		for (final ListIterator<Question> it = PASS_MANAGER.getQuestions().listIterator(); it.hasNext();) {
+			Question q = it.next();
+			ANSWERS.add(PASS_MANAGER.getAnswer("answer" + it.previousIndex(), USER, q));
+			PLAIN_TEXT_ANSWERS.add("answer" + it.previousIndex());
 		}
 	}
 
 	@Test
 	public void testWrongLength() {
 
-		Password password = new Password("a23F567");
-
 		PasswordRuleException exception = assertThrows(PasswordRuleException.class, () -> {
-			PASS_MANAGER.isValidPassword(password);
+			PASS_MANAGER.isValidPassword("a23F567");
 		});
 
 		assertEquals("passwordLengthRule.errorMessage", exception.getMessage());
@@ -81,10 +95,8 @@ public class PasswordManagerTest {
 	@Test
 	public void testNoUpperCase() {
 
-		Password password = new Password("a2345678");
-
 		PasswordRuleException exception = assertThrows(PasswordRuleException.class, () -> {
-			PASS_MANAGER.isValidPassword(password);
+			PASS_MANAGER.isValidPassword("a2345678");
 		});
 
 		assertEquals("passwordUppercaseCharRule.errorMessage", exception.getMessage());
@@ -97,10 +109,8 @@ public class PasswordManagerTest {
 	@Test
 	public void testNoLowerCase() {
 
-		Password password = new Password("A2345678");
-
 		PasswordRuleException exception = assertThrows(PasswordRuleException.class, () -> {
-			PASS_MANAGER.isValidPassword(password);
+			PASS_MANAGER.isValidPassword("A2345678");
 		});
 
 		assertEquals("passwordLowercaseCharRule.errorMessage", exception.getPasswordRule().getErrorMessageKey());
@@ -109,31 +119,42 @@ public class PasswordManagerTest {
 
 	@Test
 	public void testEncrypt() throws Exception {
-		String cText = PASS_MANAGER.encrypt("pText".getBytes(), PASSWORD);
-		String pText = PASS_MANAGER.decrypt(cText, PASSWORD);
-		assertEquals(pText,"pText");
+		String cText = PASS_MANAGER.encrypt("pText".getBytes(), PLAIN_TEXT_PASS);
+		String pText = PASS_MANAGER.decrypt(cText, PLAIN_TEXT_PASS);
+		assertEquals(pText, "pText");
 	}
-	
+
 	@Test
 	public void testQuestions() throws Exception {
-		
+
 		String pText = "testing123";
-		
-		String cText = PASS_MANAGER.encrypt(pText.getBytes(), ANSWERS, USER);
-		
-		String decryptedText = PASS_MANAGER.decrypt(cText, ANSWERS, USER);
-		
+
+		String cText = PASS_MANAGER.encrypt(pText.getBytes(), PLAIN_TEXT_ANSWERS, USER);
+
+		String decryptedText = PASS_MANAGER.decrypt(cText, PLAIN_TEXT_ANSWERS, USER);
+
 		assertEquals(pText, decryptedText);
 	}
-	
+
 	@Test
 	public void testRandomKey() throws Exception {
-		
+
 		SecretKey secretKey = CryptoUtils.getAESKey(256);
+
+		String cKeyWithPassword = PASS_MANAGER.encrypt(secretKey.getEncoded(), PLAIN_TEXT_PASS);
+		String cKeyWithAnswers = PASS_MANAGER.encrypt(secretKey.getEncoded(), PLAIN_TEXT_ANSWERS, USER);
 		
-		String cKeyWithPassword = PASS_MANAGER.encrypt(secretKey.getEncoded(), PASSWORD);
-		String cKeyWithAnswers = PASS_MANAGER.encrypt(secretKey.getEncoded(), ANSWERS, USER);
+		String pKeyWithPassword = PASS_MANAGER.decrypt(cKeyWithPassword, PLAIN_TEXT_PASS);
+		String pKeyWithAnswers = PASS_MANAGER.decrypt(cKeyWithAnswers, PLAIN_TEXT_ANSWERS, USER);
 		
+		assertEquals(pKeyWithPassword, pKeyWithAnswers);
+	}
+
+	@Test
+	public void testHashAnswers() {
 		
+		for(Answer answer:ANSWERS) {
+			answer.getHashValue();
+		}
 	}
 }

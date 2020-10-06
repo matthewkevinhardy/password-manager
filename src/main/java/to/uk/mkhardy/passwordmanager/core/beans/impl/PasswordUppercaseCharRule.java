@@ -9,11 +9,11 @@ public final class PasswordUppercaseCharRule extends PasswordRule {
 		super(description, errorMessage);
 	}
 
-	public boolean isValidPassword(Password password) throws PasswordRuleException {
+	public boolean isValidPassword(String password) throws PasswordRuleException {
 		
 		boolean containsUpper = false;
 		
-		for(char c:password.getString().toCharArray()) {
+		for(char c:password.toCharArray()) {
 			if(Character.isUpperCase(c)) {
 				containsUpper=true;
 				break;

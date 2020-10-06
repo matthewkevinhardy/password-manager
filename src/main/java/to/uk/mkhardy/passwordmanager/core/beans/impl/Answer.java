@@ -1,17 +1,19 @@
 package to.uk.mkhardy.passwordmanager.core.beans.impl;
 
 public final class Answer {
-	private final  byte[] byteValue;
+	//private final  byte[] byteValue;
+	private final String hashValue;
 	private final Question question;
 	private final User user;
 	
-	public Answer(String value, Question question, User user) {
-		this.byteValue = value.getBytes();
+	public Answer(String hashValue, Question question, User user) {
+		//this.byteValue = value.getBytes();
 		this.question = question;
 		this.user= user;
+		this.hashValue=hashValue;
 	}
-	public String getStringValue() {
-		return new String(byteValue);
+	public String getHashValue() {
+		return hashValue;
 	}
 	public Question getQuestion() {
 		return question;
