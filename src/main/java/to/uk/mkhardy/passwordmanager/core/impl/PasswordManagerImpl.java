@@ -1,10 +1,6 @@
 package to.uk.mkhardy.passwordmanager.core.impl;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.List;
-
-import javax.crypto.SecretKey;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -84,6 +80,16 @@ public class PasswordManagerImpl implements PasswordManager {
 		String passHashBase64 = Base64.encodeBase64String(passHash);
 		Password password = new Password(passHashBase64,user);
 		return password;
+	}
+
+	@Override
+	public boolean isValidAnswer(String pText, Answer answer) {
+		StringBuilder hashBuilder = new StringBuilder(answer.getUser().getUserName())
+				.append(answer.getQuestion().getQuestionId()).append(pText);
+		byte[] answerHash = DigestUtils.sha256(hashBuilder.toString().getBytes());
+		String answerHashBase64 = Base64.encodeBase64String(answerHash);
+		
+		return answerHashBase64.equals(answer.getHashValue());
 	}
 	
 }

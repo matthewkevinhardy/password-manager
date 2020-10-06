@@ -17,6 +17,7 @@ import to.uk.mkhardy.passwordmanager.core.impl.CryptoUtils;
 import to.uk.mkhardy.passwordmanager.core.impl.EncryptorAesGcm;
 import to.uk.mkhardy.passwordmanager.core.impl.PasswordRuleException;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -153,8 +154,11 @@ public class PasswordManagerTest {
 	@Test
 	public void testHashAnswers() {
 		
-		for(Answer answer:ANSWERS) {
-			answer.getHashValue();
+		for (final ListIterator<Answer> it = ANSWERS.listIterator(); it.hasNext();) {
+			Answer answer = it.next();
+			String plainTxtAnswer = PLAIN_TEXT_ANSWERS.get(it.previousIndex());
+			
+			assertTrue( PASS_MANAGER.isValidAnswer(plainTxtAnswer, answer) );
 		}
 	}
 }
