@@ -1,14 +1,14 @@
 package to.uk.mkhardy.passwordmanager.core.beans.impl;
 
 public final class Question {
-	private final String question;
+	private final String questionId;
 
-	public Question(String question) {
-		this.question = question;
+	public Question(String questionId) {
+		this.questionId = questionId;
 	}
 
-	public String getQuestion() {
-		return question;
+	public String getQuestionId() {
+		return questionId;
 	}
 	
 	
