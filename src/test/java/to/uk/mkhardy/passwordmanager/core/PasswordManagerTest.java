@@ -165,9 +165,9 @@ public class PasswordManagerTest {
 		assertFalse( PASS_MANAGER.isCorrectPassword("wrongPassword", PASSWORD) );
 	}
 	
-	@Test
-	public void testDataKey() throws Exception {
-		String genKey = PASS_MANAGER.generateDataKey(PLAIN_TEXT_PASS, USER);
-		String dataKey = PASS_MANAGER.extractDataKey(genKey, PLAIN_TEXT_PASS, USER);
-	}
+//	@Test
+//	public void testDataKey() throws Exception {
+//		String genKey = PASS_MANAGER.generateDataKey(PLAIN_TEXT_PASS, USER);
+//		String dataKey = PASS_MANAGER.extractDataKey(genKey, PLAIN_TEXT_PASS, USER);
+//	}
 }
