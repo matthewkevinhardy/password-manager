@@ -153,15 +153,21 @@ public class PasswordManagerTest {
 			Answer answer = it.next();
 			String plainTxtAnswer = PLAIN_TEXT_ANSWERS.get(it.previousIndex());
 			
-			assertTrue( PASS_MANAGER.isValidAnswer(plainTxtAnswer, answer) );
-			assertFalse( PASS_MANAGER.isValidAnswer("wrongAnswer", answer) );
+			assertTrue( PASS_MANAGER.isCorrectAnswer(plainTxtAnswer, answer) );
+			assertFalse( PASS_MANAGER.isCorrectAnswer("wrongAnswer", answer) );
 		}
 	}
 	
 	@Test
 	public void testPassword() {
 		
-		assertTrue( PASS_MANAGER.isValidPassword(PLAIN_TEXT_PASS, PASSWORD) );
-		assertFalse( PASS_MANAGER.isValidPassword("wrongPassword", PASSWORD) );
+		assertTrue( PASS_MANAGER.isCorrectPassword(PLAIN_TEXT_PASS, PASSWORD) );
+		assertFalse( PASS_MANAGER.isCorrectPassword("wrongPassword", PASSWORD) );
+	}
+	
+	@Test
+	public void testDataKey() throws Exception {
+		String genKey = PASS_MANAGER.generateDataKey(PLAIN_TEXT_PASS, USER);
+		String dataKey = PASS_MANAGER.extractDataKey(genKey, PLAIN_TEXT_PASS, USER);
 	}
 }

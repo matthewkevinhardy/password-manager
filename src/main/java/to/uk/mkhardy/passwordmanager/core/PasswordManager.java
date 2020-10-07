@@ -16,9 +16,9 @@ public interface PasswordManager {
 	
 	public Password getPassword(String value,User user);
 	
-	public boolean isValidAnswer(String pText,Answer answer);
+	public boolean isCorrectAnswer(String pText,Answer answer);
 	
-	public boolean isValidPassword(String pText,Password password);
+	public boolean isCorrectPassword(String pText,Password password);
 	
 	public List<Question> getQuestions();
 	
@@ -29,4 +29,8 @@ public interface PasswordManager {
 	public String decrypt(String cText, String password) throws Exception;
 	
 	public String decrypt(String pText, List<String> answers, User user) throws Exception;
+	
+	public String generateDataKey(String password, User user) throws Exception;
+	
+	public String extractDataKey(String encrypytedDataKey, String password, User user) throws Exception;
 }

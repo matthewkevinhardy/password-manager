@@ -92,7 +92,7 @@ public class PasswordManagerImpl implements PasswordManager {
 	}
 
 	@Override
-	public boolean isValidAnswer(String pText, Answer answer) {
+	public boolean isCorrectAnswer(String pText, Answer answer) {
 		StringBuilder hashBuilder = new StringBuilder(answer.getUser().getUserName())
 				.append(answer.getQuestion().getQuestionId()).append(pText);
 		byte[] answerHash = DigestUtils.sha256(hashBuilder.toString().getBytes());
@@ -102,7 +102,7 @@ public class PasswordManagerImpl implements PasswordManager {
 	}
 
 	@Override
-	public boolean isValidPassword(String pText, Password password) {
+	public boolean isCorrectPassword(String pText, Password password) {
 		StringBuilder hashBuilder = new StringBuilder(password.getUser().getUserName()).append(pText);
 		byte[] passHash = DigestUtils.sha256(hashBuilder.toString().getBytes());
 		String passHashBase64 = Base64.encodeBase64String(passHash);
@@ -145,6 +145,9 @@ public class PasswordManagerImpl implements PasswordManager {
 		try {
 			in = new ObjectInputStream(bis);
 			DataKey dataKey = (DataKey) in.readObject();
+			if( !user.getUserName().equals(dataKey.getUser().getUserName())) {
+				throw new Exception("Invalid key");
+			}
 			return Base64.encodeBase64String( dataKey.getDataKey() ) ;
 		} finally {
 			try {
