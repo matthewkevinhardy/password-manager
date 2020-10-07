@@ -28,7 +28,7 @@ public interface PasswordManager {
 
 	public String decrypt(String cText, String password) throws Exception;
 	
-	public String decrypt(String pText, List<String> answers, User user) throws Exception;
+	public String decrypt(String cText, List<String> answers, User user) throws Exception;
 	
 	public String generateDataKey(String password, User user) throws Exception;
 	
