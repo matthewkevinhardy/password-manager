@@ -1,7 +1,6 @@
 package to.uk.mkhardy.passwordmanager.core.beans.impl;
 
 import to.uk.mkhardy.passwordmanager.core.beans.PasswordRule;
-import to.uk.mkhardy.passwordmanager.core.impl.PasswordRuleException;
 
 public final class PasswordLengthRule extends PasswordRule {
 
@@ -12,9 +11,9 @@ public final class PasswordLengthRule extends PasswordRule {
 		this.minChars=minChars;
 	}
 
-	public boolean isValidPassword(String password) throws PasswordRuleException {
+	public boolean isValidPassword(String password) {
 		if(password!=null && password.length()<minChars) {
-			throw new PasswordRuleException(this);
+			return false;
 		}
 		return true;
 	}

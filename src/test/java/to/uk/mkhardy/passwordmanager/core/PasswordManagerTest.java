@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.crypto.SecretKey;
 
@@ -30,16 +28,14 @@ import to.uk.mkhardy.passwordmanager.core.impl.PasswordRuleException;
 public class PasswordManagerTest {
 
 	private static PasswordManager PASS_MANAGER;
-	private static ResourceBundle MESSAGES_EN = ResourceBundle
-			.getBundle("to.uk.mkhardy.passwordmanager.core.i18n.MessageBundle", Locale.ENGLISH);
-
+	
 	private static User USER = new User("myUserName");
 
 	private static List<Answer> ANSWERS = new LinkedList<Answer>();
 	private static List<String> PLAIN_TEXT_ANSWERS = new LinkedList<String>();
-	
+
 	private static String PLAIN_TEXT_PASS = "P@SSw0RD";
-	
+
 	private static Password PASSWORD;
 
 	@BeforeClass
@@ -84,8 +80,9 @@ public class PasswordManagerTest {
 			PASS_MANAGER.isValidPassword("a23F567");
 		});
 
-		assertEquals("passwordLengthRule.errorMessage", exception.getMessage());
-
+		//assertEquals("passwordLengthRule.errorMessage", exception.getMessage());
+		assertTrue(exception.getPasswordRules().stream()
+				.anyMatch(item -> "passwordLengthRule.errorMessage".equals(item.getErrorMessageKey())));
 	}
 
 	@Test
@@ -95,10 +92,8 @@ public class PasswordManagerTest {
 			PASS_MANAGER.isValidPassword("a2345678");
 		});
 
-		assertEquals("passwordUppercaseCharRule.errorMessage", exception.getMessage());
-
-		String errorMessage = MESSAGES_EN.getString(exception.getPasswordRule().getErrorMessageKey());
-		assertEquals("Min 1 uppercase char", errorMessage);
+		assertTrue(exception.getPasswordRules().stream()
+				.anyMatch(item -> "passwordUppercaseCharRule.errorMessage".equals(item.getErrorMessageKey())));
 
 	}
 
@@ -109,7 +104,8 @@ public class PasswordManagerTest {
 			PASS_MANAGER.isValidPassword("A2345678");
 		});
 
-		assertEquals("passwordLowercaseCharRule.errorMessage", exception.getPasswordRule().getErrorMessageKey());
+		assertTrue(exception.getPasswordRules().stream()
+				.anyMatch(item -> "passwordLowercaseCharRule.errorMessage".equals(item.getErrorMessageKey())));
 
 	}
 
@@ -139,32 +135,32 @@ public class PasswordManagerTest {
 
 		String cKeyWithPassword = PASS_MANAGER.encrypt(secretKey.getEncoded(), PLAIN_TEXT_PASS);
 		String cKeyWithAnswers = PASS_MANAGER.encrypt(secretKey.getEncoded(), PLAIN_TEXT_ANSWERS, USER);
-		
+
 		String pKeyWithPassword = PASS_MANAGER.decrypt(cKeyWithPassword, PLAIN_TEXT_PASS);
 		String pKeyWithAnswers = PASS_MANAGER.decrypt(cKeyWithAnswers, PLAIN_TEXT_ANSWERS, USER);
-		
+
 		assertEquals(pKeyWithPassword, pKeyWithAnswers);
 	}
 
 	@Test
 	public void testHashAnswers() {
-		
+
 		for (final ListIterator<Answer> it = ANSWERS.listIterator(); it.hasNext();) {
 			Answer answer = it.next();
 			String plainTxtAnswer = PLAIN_TEXT_ANSWERS.get(it.previousIndex());
-			
-			assertTrue( PASS_MANAGER.isCorrectAnswer(plainTxtAnswer, answer) );
-			assertFalse( PASS_MANAGER.isCorrectAnswer("wrongAnswer", answer) );
+
+			assertTrue(PASS_MANAGER.isCorrectAnswer(plainTxtAnswer, answer));
+			assertFalse(PASS_MANAGER.isCorrectAnswer("wrongAnswer", answer));
 		}
 	}
-	
+
 	@Test
 	public void testPassword() {
-		
-		assertTrue( PASS_MANAGER.isCorrectPassword(PLAIN_TEXT_PASS, PASSWORD) );
-		assertFalse( PASS_MANAGER.isCorrectPassword("wrongPassword", PASSWORD) );
+
+		assertTrue(PASS_MANAGER.isCorrectPassword(PLAIN_TEXT_PASS, PASSWORD));
+		assertFalse(PASS_MANAGER.isCorrectPassword("wrongPassword", PASSWORD));
 	}
-	
+
 //	@Test
 //	public void testDataKey() throws Exception {
 //		String genKey = PASS_MANAGER.generateDataKey(PLAIN_TEXT_PASS, USER);

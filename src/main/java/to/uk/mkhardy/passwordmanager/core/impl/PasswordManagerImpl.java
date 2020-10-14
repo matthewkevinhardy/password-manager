@@ -30,10 +30,21 @@ public class PasswordManagerImpl implements PasswordManager {
 
 	@Override
 	public boolean isValidPassword(String password) throws PasswordRuleException {
+		boolean isValid = true;
+		PasswordRuleException passwordRuleException = new PasswordRuleException();
+		
 		for (PasswordRule passwordRule : passwordRules) {
-			passwordRule.isValidPassword(password);
+			if(!passwordRule.isValidPassword(password)) {
+				isValid=false;
+				passwordRuleException.addBrokenRule(passwordRule);
+			}
 		}
-		return true;
+		
+		if(!isValid) {
+			throw passwordRuleException;
+		}
+		
+		return isValid;
 	}
 
 	@Override

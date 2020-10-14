@@ -1,24 +1,22 @@
 package to.uk.mkhardy.passwordmanager.core.impl;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import to.uk.mkhardy.passwordmanager.core.beans.PasswordRule;
 
 public class PasswordRuleException extends Exception {
 
 	private static final long serialVersionUID = -6443867089202147727L;
 	
-	private PasswordRule passwordRule;
+	private List<PasswordRule> passwordRules = new LinkedList<PasswordRule>();
 
-	public PasswordRuleException(PasswordRule passwordRule) {
-		this.passwordRule = passwordRule;
+	public void addBrokenRule(PasswordRule pRule) {
+		this.passwordRules.add(pRule);
 	}
 	
-	public PasswordRule getPasswordRule() {
-		return passwordRule;
-	}
-
-	@Override
-	public String getMessage() {
-		return this.passwordRule.getErrorMessageKey();
+	public List<PasswordRule> getPasswordRules() {
+		return passwordRules;
 	}
 	
 }

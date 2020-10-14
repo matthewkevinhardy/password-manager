@@ -1,7 +1,6 @@
 package to.uk.mkhardy.passwordmanager.core.beans.impl;
 
 import to.uk.mkhardy.passwordmanager.core.beans.PasswordRule;
-import to.uk.mkhardy.passwordmanager.core.impl.PasswordRuleException;
 
 public final class PasswordUppercaseCharRule extends PasswordRule {
 	
@@ -9,7 +8,7 @@ public final class PasswordUppercaseCharRule extends PasswordRule {
 		super(description, errorMessage);
 	}
 
-	public boolean isValidPassword(String password) throws PasswordRuleException {
+	public boolean isValidPassword(String password) {
 		
 		boolean containsUpper = false;
 		
@@ -21,7 +20,7 @@ public final class PasswordUppercaseCharRule extends PasswordRule {
 		}
 		
 		if(!containsUpper) {
-			throw new PasswordRuleException(this);
+			return false;
 		}
 		
 		return true;
