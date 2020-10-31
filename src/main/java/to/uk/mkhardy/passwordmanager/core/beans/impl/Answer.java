@@ -1,18 +1,11 @@
 package to.uk.mkhardy.passwordmanager.core.beans.impl;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public final class Answer {
-	// private final byte[] byteValue;
 	private final String hashValue;
 	private final Question question;
 	private final User user;
 
-	@JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-	public Answer(@JsonProperty("hashValue") String hashValue, @JsonProperty("question") Question question,
-			@JsonProperty("user") User user) {
-		// this.byteValue = value.getBytes();
+	public Answer(String hashValue, Question question,User user) {
 		this.question = question;
 		this.user = user;
 		this.hashValue = hashValue;
